@@ -1,0 +1,109 @@
+<script type="text/javascript">
+  RED.nodes.registerType("USBConfig",{
+    category:'config',
+    defaults: {
+      vid: {value: '', required: true},
+      pid: {value: '', required: true},
+      name: {value: ''}
+    },
+    label: function(){
+      return this.name || 'USBConfig';
+    }
+  });
+</script>
+
+
+<script type="text/x-red" data-template-name="USBConfig">
+
+  <div class="form-row">
+    <label for="node-config-input-vid"><i class="fa "></i> VID </label>
+    <input type="text" id="node-config-input-vid" placeholder="">
+  </div>
+
+  <div class="form-row">
+    <label for="node-config-input-pid"><i class="fa "></i> PID </label>
+    <input type="text" id="node-config-input-pid" placeholder="">
+  </div>
+
+    <div class="form-row">
+    <label for="node-config-input-name"><i class="fa "></i> Name</label>
+    <input type="text" id="node-config-input-name" placeholder="USB Device">
+  </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="USBConfig">
+  <p>Details of the HID Device connection</p>
+</script>
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('getUSBdevices',{
+        category: 'USBHid',
+        color: '#dce0d9',
+        defaults: {
+            name: {value:""}            
+        },
+        inputs:1,
+        outputs:1,
+        icon: "usb.png",
+        label: function() {
+            return this.name||"getUSBdevices";
+        }
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="getUSBdevices">
+
+      <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="getUSBdevices">
+    <p>A simple node that lists the connected HID Devices ans return them as msg.payload</p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('USBdevice',{
+        category: 'USBHid',
+        color: '#dce0d9',
+        defaults: {
+            connection: {type: 'USBConfig', required: true},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:2,
+        icon: "usb.png",
+        align: 'right',
+        label: function() {
+            return this.name ||"USBdevice";
+        }
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="USBdevice">
+
+    <div class="form-row">
+    <label for="node-input-connection"><i class="fa "></i> Connection</label>
+    <input type="text" id="node-input-connection" placeholder="">
+  </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="USBdevice">
+    <p>A simple node that receives BYTE array or Buffer as msg.payload and sends it to the HID Device. It sends received data as msg.payload (Buffer) to output 1 and errors to output 2</p>
+</script>
+
+
+
+
